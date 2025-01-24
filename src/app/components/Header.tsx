@@ -43,9 +43,6 @@ export default function Header() {
             <li>
               <Link href="/projects" className="hover:underline">projects</Link>
             </li>
-            <li>
-              <Link href="/blog" className="hover:underline">blog</Link>
-            </li>
           </ul>
 
           <div className="relative md:hidden" ref={dropdownRef}>
@@ -74,13 +71,6 @@ export default function Header() {
                   onClick={handleLinkClick}
                 >
                   projects
-                </Link>
-                <Link 
-                  href="/blog" 
-                  className="block px-4 py-2 text-lg hover:bg-gray-400 transition-colors"
-                  onClick={handleLinkClick}
-                >
-                  blog
                 </Link>
               </div>
             )}

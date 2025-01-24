@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { SiTailwindcss } from 'react-icons/si';
 import { SiExpress } from 'react-icons/si';
 import { SiFastapi } from 'react-icons/si';
-import { SiPytorch } from 'react-icons/si';
+import { SiScikitlearn } from "react-icons/si";
 import { SiHuggingface } from 'react-icons/si';
 import { SiNextdotjs } from "react-icons/si";
 import { SiLangchain } from "react-icons/si";
@@ -21,7 +21,7 @@ export default function Home() {
   const [messages, setMessages] = useState([
     {
       text: "👋 Welcome to Febrian's portfolio site! I'm here to guide you through projects Febrian have completed or even share a bit about Febrian. Whether you’re curious about the technologies Febrian worked with or the story behind it, I’ve got all the answers.",
-      sender: 'Assitant',
+      sender: 'Assistant',
     },
   ]);
 
@@ -42,7 +42,7 @@ export default function Home() {
     setIsLoading(true);
 
     try {
-      const response = await fetch(`#`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_CHATBOT_URL}/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -60,13 +60,13 @@ export default function Home() {
       const data = await response.json();
       setMessages((prev) => [
         ...prev,
-        { text: data.response, sender: 'Assitant' },
+        { text: data.response, sender: 'Assistant' },
       ]);
     } catch (error) {
       console.error('Error fetching response:', error);
       setMessages((prev) => [
         ...prev,
-        { text: 'Maaf, terjadi kesalahan. Silakan coba lagi.', sender: 'Assitant' },
+        { text: 'Sorry, an error occurred. Please try again.', sender: 'Assistant' },
       ]);
     } finally {
       setIsLoading(false);
@@ -91,19 +91,19 @@ export default function Home() {
     <div className='flex flex-col min-h-screen'>
       <Header />
       <div className="flex-grow grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 grid-rows-2 gap-6 md:gap-4 lg:gap-6 md:pb-16 lg:pb-20">
-        <div className="relative col-span-1 md:col-span-2 lg:col-span-3 row-span-1 flex justify-center border-[0.5px] border-gray-200 rounded-[14px] transition-transform duration-500 hover:scale-105 group cursor-pointer">
+        <div className="relative col-span-1 md:col-span-2 lg:col-span-3 row-span-1 flex justify-center border-[0.5px] border-gray-200 rounded-[14px] transition-transform duration-500 hover:scale-105 group">
           <div className="absolute inset-0 bg-gray-300 rounded-[14px] opacity-20 pointer-events-none"></div>
 
           <div className="relative flex flex-col md:flex-row p-6 items-center justify-center gap-4 md:gap-6">
             <Image className='rounded-full' src='/images/pp.jpg' alt='profile picture' width={150} height={150} />
             <div>
               <h2 className='text-3xl'>Hi!</h2>
-              <p className='font-lato font-light text-base'>My name is Febrian Irvansyah, Computer Science student with interest in Web Development and Generative Artificial Intelligence.</p>
+              <p className='font-lato font-light text-base'>My name is <span className='font-medium'>Febrian Irvansyah</span>, Computer Science student with interest in Web Development and Generative Artificial Intelligence.</p>
               <div className='flex flex-wrap font-lato font-light text-sm gap-2 pt-2'>
-                <p className="relative border-[1px] border-black px-3 bg-gradient-to-r from-blue-800 via-black to-rose-800 rounded-full">📍 Jakarta</p>
-                <p className="relative border-[1px] border-black px-3 bg-gradient-to-r from-blue-800 via-black to-rose-800 rounded-full">🎓 Universitas Indonesia</p>
-                <p className="relative border-[1px] border-black px-3 bg-gradient-to-r from-blue-800 via-black to-rose-800 rounded-full">🧑‍💻 Fullstack Developer</p>
-                <p className="relative border-[1px] border-black px-3 bg-gradient-to-r from-blue-800 via-black to-rose-800 rounded-full">🌏 English & Indonesian</p>
+                <p className="relative border-[0.5px] border-black px-3 bg-gradient-to-r from-rose-900 to-blue-900 rounded-full">📍 Jakarta</p>
+                <p className="relative border-[0.5px] border-black px-3 bg-gradient-to-r from-rose-900 to-blue-900 rounded-full">🎓 Universitas Indonesia</p>
+                <p className="relative border-[0.5px] border-black px-3 bg-gradient-to-r from-rose-900 to-blue-900 rounded-full">🧑‍💻 Fullstack Developer</p>
+                <p className="relative border-[0.5px] border-black px-3 bg-gradient-to-r from-rose-900 to-blue-900 rounded-full">🌏 English & Indonesian</p>
               </div>
             </div>
           </div>
@@ -146,31 +146,31 @@ export default function Home() {
           <h2 className='text-xl'>My Tech Stacks</h2>
 
           <div className='grid z-10 grid-cols-2 gap-y-2 gap-x-6 font-lato font-light'>
-              <div className='flex bg-gradient-to-r from-blue-900 via-black to-rose-800 border-[1px] border-black rounded-md p-2 gap-2 hover:scale-105 duration-300'>
+              <div className='flex bg-gradient-to-r from-rose-900 to-blue-900 border-[0.5px] border-black rounded-md p-2 gap-2 hover:scale-105 duration-300'>
                   <SiNextdotjs className='text-white' size={24} />
                   Next.js
               </div>
-              <div className='flex bg-gradient-to-r from-blue-800 via-black to-rose-800 border-[1px] border-black rounded-md p-2 gap-2 hover:scale-105 duration-300'>
+              <div className='flex bg-gradient-to-r from-rose-900 to-blue-900 border-[0.5px] border-black rounded-md p-2 gap-2 hover:scale-105 duration-300'>
                   <SiTailwindcss className='text-sky-400' size={24} />
                   Tailwind CSS
               </div>
-              <div className='flex bg-gradient-to-r from-blue-800 via-black to-rose-800 border-[1px] border-black rounded-md p-2 gap-2 hover:scale-105 duration-300'>
+              <div className='flex bg-gradient-to-r from-rose-900 to-blue-900 border-[0.5px] border-black rounded-md p-2 gap-2 hover:scale-105 duration-300'>
                   <SiExpress className='text-gray-400' size={24} />
                   Express.js
               </div>
-              <div className='flex bg-gradient-to-r from-blue-800 via-black to-rose-800 border-[1px] border-black rounded-md p-2 gap-2 hover:scale-105 duration-300'>
+              <div className='flex bg-gradient-to-r from-rose-900 to-blue-900 border-[0.5px] border-black rounded-md p-2 gap-2 hover:scale-105 duration-300'>
                   <SiFastapi className='text-green-400' size={24} />
                   FastAPI
               </div>
-              <div className='flex bg-gradient-to-r from-blue-800 via-black to-rose-800 border-[1px] border-black rounded-md p-2 gap-2 hover:scale-105 duration-300'>
-                  <SiPytorch className='text-orange-400' size={24} />
-                  PyTorch
+              <div className='flex bg-gradient-to-r from-rose-900 to-blue-900 border-[0.5px] border-black rounded-md p-2 gap-2 hover:scale-105 duration-300'>
+                  <SiScikitlearn className='text-orange-400' size={24} />
+                  scikit-learn
               </div>
-              <div className='flex bg-gradient-to-r from-blue-800 via-black to-rose-800 border-[1px] border-black rounded-md p-2 gap-2 hover:scale-105 duration-300'>
+              <div className='flex bg-gradient-to-r from-rose-900 to-blue-900 border-[0.5px] border-black rounded-md p-2 gap-2 hover:scale-105 duration-300'>
                   <SiHuggingface className='text-yellow-400' size={24} />
                   Hugging Face
               </div>
-              <div className='flex bg-gradient-to-r from-blue-800 via-black to-rose-800 border-[1px] border-black rounded-md p-2 gap-2 hover:scale-105 duration-300'>
+              <div className='flex bg-gradient-to-r from-rose-900 to-blue-900 border-[0.5px] border-black rounded-md p-2 gap-2 hover:scale-105 duration-300'>
                   <SiLangchain className='text-green-700' size={24} />
                   Langchain
               </div>
@@ -189,17 +189,17 @@ export default function Home() {
             {messages.map((message, index) => (
               <div
                 key={index}
-                className={`flex ${message.sender === 'Assitant' ? 'justify-start' : 'justify-end'}`}
+                className={`flex ${message.sender === 'Assistant' ? 'justify-start' : 'justify-end'}`}
               >
                 <div
                   className={`max-w-[75%] rounded-xl border border-gray-300 p-3 text-sm 
-                    ${message.sender === 'Assitant' ? 'bg-blue-700/10' : 'bg-rose-700/30 text-white'}`}
+                    ${message.sender === 'Assistant' ? 'bg-blue-700/10' : 'bg-rose-700/30 text-white'}`}
                 >
                   {message.text}
                 </div>
               </div>
             ))}
-            {isLoading && <div className="self-start text-gray-400">Assitant is typing...</div>}
+            {isLoading && <div className="self-start text-gray-400">PortoBot is typing...</div>}
           </div>
 
           <div className="flex h-[48px] mt-auto">
@@ -222,13 +222,13 @@ export default function Home() {
         </div>
       </div>
 
-        <div className="relative col-span-1 md:col-span-1 row-span-1 border-[0.5px] border-gray-200 rounded-[14px] h-full transition-transform duration-500 hover:scale-105 p-4">
+        <div className="relative col-span-1 md:col-span-1 row-span-1 border-[0.5px] border-gray-200 rounded-[14px] h-full transition-transform duration-500 hover:scale-105 p-4 mb-4">
           <div className="absolute z-1 inset-0 bg-gray-300 rounded-[14px] opacity-20 pointer-events-none"></div>
           <h2 className='flex z-10 items-center justify-center text-lg'>Connect</h2>
           <div className='flex flex-col justify-center items-stretch gap-4 mt-6'>
-            <Link href={"/"} className='flex z-10 cursor-pointer items-center justify-center gap-2 p-2 border-black border-[1px] bg-orange-700 font-lato font-light rounded-md hover:scale-105 duration-100'><IoIosMail />Email</Link>
-            <Link href={"/"} className='flex z-10 cursor-pointer items-center justify-center gap-2 p-2 border-black border-[1px] bg-black font-lato font-light rounded-md hover:scale-105 duration-100'><FaGithub/>GitHub</Link>
-            <Link href={"/"} className='flex z-10 cursor-pointer items-center justify-center gap-2 p-2 border-black border-[1px] bg-white text-blue-600 font-lato font-light rounded-md hover:scale-105 duration-100'><FaLinkedin className='text-blue-600'/>LinkedIn</Link>
+            <Link href={"/"} className='flex z-10 cursor-pointer bg-gradient-to-r from-rose-900 to-blue-900 items-center justify-center gap-2 p-2 border-black border-[0.5px] font-lato font-light rounded-md hover:scale-105 duration-100'><IoIosMail />Email</Link>
+            <Link href={"/"} className='flex z-10 cursor-pointer bg-gradient-to-r from-rose-900 to-blue-900 items-center justify-center gap-2 p-2 border-black border-[0.5px] font-lato font-light rounded-md hover:scale-105 duration-100'><FaGithub/>GitHub</Link>
+            <Link href={"/"} className='flex z-10 cursor-pointer bg-gradient-to-r from-rose-900 to-blue-900 items-center justify-center gap-2 p-2 border-black border-[0.5px] font-lato font-light rounded-md hover:scale-105 duration-100'><FaLinkedin className='text-white'/>LinkedIn</Link>
           </div>
         </div>
       </div>
