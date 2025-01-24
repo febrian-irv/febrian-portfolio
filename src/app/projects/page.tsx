@@ -8,7 +8,7 @@ import Image from 'next/image';
 export default function Projects() {
     const [articles, setArticles] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const [error, setError] = useState<string | null>(null); 
 
     useEffect(() => {
         const fetchArticles = async () => {
@@ -21,7 +21,11 @@ export default function Projects() {
                 const data = await response.json();
                 setArticles(data);
             } catch (err) {
-                setError(err.message);
+                if (err instanceof Error) {
+                    setError(err.message);
+                } else {
+                    setError('An unknown error occurred.');
+                }
             } finally {
                 setLoading(false);
             }
@@ -30,13 +34,21 @@ export default function Projects() {
         fetchArticles();
     }, []);
 
-    const cleanContent = (content) => {
+    const cleanContent = (content: string) => {
         return content
             .replace(/#/g, '')
             .replace(/\*/g, '')
             .replace(/\{\{.*?\}\}/g, '')
             .trim();
     };
+
+    interface Article {
+        id: number;
+        title: string;
+        content: string;
+        subtitle: string
+        imagesURL: string[];
+    }
 
     return (
         <div>
@@ -57,7 +69,7 @@ export default function Projects() {
                 )}
                 {error && <p className="col-span-full text-center">Error: {error}</p>}
                 {!loading && !error && articles.length > 0 && (
-                    articles.map((article) => (
+                    articles.map((article: Article) => (
                         <Link
                             href={`/projects/${article.id}`}
                             key={article.id}
@@ -71,7 +83,7 @@ export default function Projects() {
                             <div className="mb-4">
                                 <h2 className="text-lg font-bold">{article.title}</h2>
                                 <h3 className="font-lato font-semibold text-sm">{article.subtitle}</h3>
-                                <p className="font-lato font-light text-sm text-sm mb-2 line-clamp-3">
+                                <p className="font-lato font-light text-sm mb-2 line-clamp-3">
                                     {cleanContent(article.content).split(' ').slice(0, 20).join(' ')}...Read More
                                 </p>
                             </div>

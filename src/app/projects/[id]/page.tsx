@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import Header from '@/app/components/Header';
 
-function markdownToHTML(markdown, imageUrls) {
+function markdownToHTML(markdown: string, imageUrls: string[]) {
     let imageIndex = 0;
 
     markdown = markdown.replace(/\{\{image\}\}/g, () => {
@@ -33,11 +33,24 @@ function markdownToHTML(markdown, imageUrls) {
     return `<div>${markdown}</div>`;
 }
 
+interface Tag {
+    tagName: string;
+    id: number;
+}
+
+interface Article {
+    title: string;
+    content: string;
+    tags?: Tag[];
+    subtitle: string
+    imagesURL: string[];
+}
+
 export default function ArticlePage() {
     const { id } = useParams();
-    const [article, setArticle] = useState(null);
+    const [article, setArticle] = useState<Article | null>(null);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const [error, setError] = useState<string | null>(null); 
 
     useEffect(() => {
         const fetchArticle = async () => {
@@ -50,7 +63,11 @@ export default function ArticlePage() {
                 const data = await response.json();
                 setArticle(data);
             } catch (err) {
-                setError(err.message);
+                if (err instanceof Error) {
+                    setError(err.message);
+                } else {
+                    setError('An unknown error occurred.');
+                }
             } finally {
                 setLoading(false);
             }

@@ -27,7 +27,7 @@ export default function Home() {
 
   const [newMessage, setNewMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const chatBoxRef = useRef(null);
+  const chatBoxRef = useRef<HTMLDivElement>(null); // Type the ref
 
   const handleSend = async () => {
     if (!newMessage.trim()) return;
@@ -73,7 +73,7 @@ export default function Home() {
     }
   };
 
-  const handleKeyPress = (event) => {
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter' && !isLoading) {
       handleSend();
     }
@@ -87,6 +87,7 @@ export default function Home() {
       });
     }
   }, [messages]);
+
   return (
     <div className='flex flex-col min-h-screen'>
       <Header />
