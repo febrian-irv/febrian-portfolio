@@ -141,7 +141,7 @@ export default function Home() {
             </div>
           </div>
           <p className='font-lato font-light text-base mt-2 text-center'>
-            Experienced in building responsive websites and developing generative artificial intelligence, actively experimenting with AI technologies, with a proven ability to solve real-world challenges.
+            Experienced in building dynamic websites and developing generative artificial intelligence, actively experimenting with AI technologies, with a proven ability to solve real-world challenges.
           </p>
 
           <h2 className='text-xl'>My Tech Stacks</h2>
@@ -223,7 +223,7 @@ export default function Home() {
         </div>
       </div>
 
-        <div className="relative col-span-1 md:col-span-1 row-span-1 border-[0.5px] border-gray-200 rounded-[14px] h-full transition-transform duration-500 hover:scale-105 p-4 mb-4">
+        <div className="relative col-span-1 md:col-span-1 row-span-1 border-[0.5px] border-gray-200 rounded-[14px] h-full transition-transform duration-500 hover:scale-105 p-4">
           <div className="absolute z-1 inset-0 bg-gray-300 rounded-[14px] opacity-20 pointer-events-none"></div>
           <h2 className='flex z-10 items-center justify-center text-lg'>Connect</h2>
           <div className='flex flex-col justify-center items-stretch gap-4 mt-6'>
