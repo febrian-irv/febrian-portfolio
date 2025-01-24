@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 import Header from '@/app/components/Header';
 import Link from 'next/link';
-import Image from 'next/image';
 
 export default function Projects() {
     const [articles, setArticles] = useState([]);
@@ -75,7 +74,7 @@ export default function Projects() {
                             key={article.id}
                             className="flex flex-col bg-gray-300/20 border-[0.5px] border-gray-200 rounded-[14px] p-4 transition-transform duration-500 hover:scale-105 group cursor-pointer"
                         >
-                            <Image
+                            <img
                                 src={article.imagesURL[0]}
                                 alt=""
                                 className="w-full h-32 object-cover rounded-md"
