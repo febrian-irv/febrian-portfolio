@@ -37,7 +37,7 @@ export default function Header() {
 
   return (
     <>
-      <header className="fixed top-4 left-4 right-4 mx-4 px-6 bg-gray-300/20 shadow-lg backdrop-blur-lg border-[0.5px] border-white rounded-full z-50">
+      <header className="fixed top-4 left-4 right-4 md:mx-28 md:py-2 px-6 bg-gray-300/20 shadow-lg backdrop-blur-lg border-[0.5px] border-white rounded-full z-50">
         <div className="flex items-center justify-between text-[20px]">
           <h1>
             <Link href="/" className="font-semibold">
@@ -68,7 +68,7 @@ export default function Header() {
             </button>
 
             {menuOpen && (
-              <div className="absolute right-0 mt-2 w-[90vw] max-w-sm rounded-lg bg-gray-200/90 shadow-lg py-2 z-50">
+              <div className="absolute right-0 mt-2 w-[60vw] max-w-sm rounded-lg bg-gray-200/90 shadow-lg py-2 z-50">
                 <Link
                   href="/"
                   className="block px-4 py-3 text-base hover:bg-gray-400/40 transition-colors"
