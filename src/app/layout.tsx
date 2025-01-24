@@ -11,6 +11,7 @@ export default function RootLayout({ children }: {children: React.ReactNode}) {
   return (
     <html lang="en">
       <head>
+      <link rel="icon" href="/images/f.svg" type="image/svg+xml" />
       <link href="https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet"/>
       </head>
       <body className="container mx-auto px-12 font-serif bg-blue-950 text-white">
