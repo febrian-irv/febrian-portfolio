@@ -181,7 +181,7 @@ export default function Home() {
       <div className="relative col-span-1 md:col-span-2 row-span-1 border-[0.5px] border-gray-200 rounded-[14px] transition-transform duration-500 hover:scale-105 h-[50vh] md:h-[40vh] lg:h-[38vh]">
         <div className="absolute inset-0 bg-gray-300 rounded-[14px] opacity-20 pointer-events-none" />
         <div className="relative h-full flex flex-col justify-between p-4 gap-2 rounded-[14px]">
-          <h2 className='flex items-center justify-center gap-1 text-lg'>Febrian's PortoBot <PiRobotFill /></h2>
+          <h2 className='flex items-center justify-center gap-1 text-lg'>Febrian&apos;s PortoBot <PiRobotFill /></h2>
           <div
             className="flex-1 overflow-y-auto space-y-4 pr-2 font-lato font-light scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent"
             ref={chatBoxRef}
