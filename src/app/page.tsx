@@ -227,9 +227,9 @@ export default function Home() {
           <div className="absolute z-1 inset-0 bg-gray-300 rounded-[14px] opacity-20 pointer-events-none"></div>
           <h2 className='flex z-10 items-center justify-center text-lg'>Connect</h2>
           <div className='flex flex-col justify-center items-stretch gap-4 mt-6'>
-            <Link href={"/"} className='flex z-10 cursor-pointer bg-gradient-to-r from-rose-900 to-blue-900 items-center justify-center gap-2 p-2 border-black border-[0.5px] font-lato font-light rounded-md hover:scale-105 duration-100'><IoIosMail />Email</Link>
-            <Link href={"/"} className='flex z-10 cursor-pointer bg-gradient-to-r from-rose-900 to-blue-900 items-center justify-center gap-2 p-2 border-black border-[0.5px] font-lato font-light rounded-md hover:scale-105 duration-100'><FaGithub/>GitHub</Link>
-            <Link href={"/"} className='flex z-10 cursor-pointer bg-gradient-to-r from-rose-900 to-blue-900 items-center justify-center gap-2 p-2 border-black border-[0.5px] font-lato font-light rounded-md hover:scale-105 duration-100'><FaLinkedin className='text-white'/>LinkedIn</Link>
+            <Link href={"https://mail.google.com/mail/?view=cm&fs=1&to=febrian.irv@gmail.com&su=Reaching%20out%20after%20checking%20out%20your%20site!"} target='_blank' className='flex z-10 cursor-pointer bg-gradient-to-r from-rose-900 to-blue-900 items-center justify-center gap-2 p-2 border-black border-[0.5px] font-lato font-light rounded-md hover:scale-105 duration-100'><IoIosMail />Email</Link>
+            <Link href={"https://github.com/febrian-irv"} target='_blank' className='flex z-10 cursor-pointer bg-gradient-to-r from-rose-900 to-blue-900 items-center justify-center gap-2 p-2 border-black border-[0.5px] font-lato font-light rounded-md hover:scale-105 duration-100'><FaGithub/>GitHub</Link>
+            <Link href={"https://linkedin.com/in/febrian-irvansyah"} target='_blank' className='flex z-10 cursor-pointer bg-gradient-to-r from-rose-900 to-blue-900 items-center justify-center gap-2 p-2 border-black border-[0.5px] font-lato font-light rounded-md hover:scale-105 duration-100'><FaLinkedin className='text-white'/>LinkedIn</Link>
           </div>
         </div>
       </div>
