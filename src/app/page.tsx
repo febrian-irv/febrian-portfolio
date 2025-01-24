@@ -114,8 +114,8 @@ export default function Home() {
           
           <div className="absolute inset-0 z-0 bg-gray-300 rounded-[14px] opacity-20 pointer-events-none"></div>
 
-          <div className="flex absolute top-2 right-2 z-10 text-sm font-lato font-light gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300 items-center">
-            <GiClick className='animate-bounce'/> See Projects 
+          <div className="flex absolute top-2 right-2 z-10 text-sm font-lato font-light gap-1 transition-opacity duration-300 items-center">
+            <GiClick/> See Projects 
           </div>
 
 
