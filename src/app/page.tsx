@@ -16,6 +16,7 @@ import { PiRobotFill } from "react-icons/pi";
 import { IoIosMail } from "react-icons/io";
 import { FaGithub } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
+import { BiLogoPostgresql } from "react-icons/bi";
 
 export default function Home() {
   const [messages, setMessages] = useState([
@@ -27,18 +28,19 @@ export default function Home() {
 
   const [newMessage, setNewMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const chatBoxRef = useRef<HTMLDivElement>(null); // Type the ref
+  const chatBoxRef = useRef<HTMLDivElement>(null); 
+  const [showShortcuts, setShowShortcuts] = useState(true);
 
   const handleSend = async () => {
     if (!newMessage.trim()) return;
 
-    // Add user's message
     const updatedMessages = [
       ...messages,
       { text: newMessage, sender: 'User' },
     ];
     setMessages(updatedMessages);
     setNewMessage('');
+    setShowShortcuts(false);
     setIsLoading(true);
 
     try {
@@ -78,6 +80,50 @@ export default function Home() {
       handleSend();
     }
   };
+
+  const handleShortcutClick = (shortcutMessage: string) => {
+    const updatedMessages = [
+      ...messages,
+      { text: shortcutMessage, sender: 'User' },
+    ];
+    setMessages(updatedMessages);
+    setShowShortcuts(false);
+    setIsLoading(true);
+  
+    fetch(`${process.env.NEXT_PUBLIC_CHATBOT_URL}/chat`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        user_message: shortcutMessage,
+        conversation_history: updatedMessages.map(
+          (msg) => `${msg.sender}: ${msg.text}`
+        ).join('\n'),
+      }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`Error: ${response.statusText}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setMessages((prev) => [
+          ...prev,
+          { text: data.response, sender: 'Assistant' },
+        ]);
+      })
+      .catch((error) => {
+        console.error('Error fetching response:', error);
+        setMessages((prev) => [
+          ...prev,
+          { text: 'Sorry, an error occurred. Please try again.', sender: 'Assistant' },
+        ]);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  };
+  
 
   useEffect(() => {
     if (chatBoxRef.current) {
@@ -175,6 +221,10 @@ export default function Home() {
                   <SiLangchain className='text-green-700' size={24} />
                   Langchain
               </div>
+              <div className='flex bg-gradient-to-r from-rose-900 to-blue-900 border-[0.5px] border-black rounded-md p-2 gap-2 hover:scale-105 duration-300'>
+                  <BiLogoPostgresql className='text-cyan-900' size={24} />
+                  PostgreSQL
+              </div>
           </div>
       </Link>
 
@@ -182,7 +232,9 @@ export default function Home() {
       <div className="relative col-span-1 md:col-span-2 row-span-1 border-[0.5px] border-gray-200 rounded-[14px] transition-transform duration-500 hover:scale-105 h-[50vh] md:h-[40vh] lg:h-[38vh]">
         <div className="absolute inset-0 bg-gray-300 rounded-[14px] opacity-20 pointer-events-none" />
         <div className="relative h-full flex flex-col justify-between p-4 gap-2 rounded-[14px]">
-          <h2 className='flex items-center justify-center gap-1 text-lg'>Febrian&apos;s PortoBot <PiRobotFill /></h2>
+          <h2 className="flex items-center justify-center gap-1 text-lg">
+            Febrian&apos;s PortoBot <PiRobotFill />
+          </h2>
           <div
             className="flex-1 overflow-y-auto space-y-4 pr-2 font-lato font-light scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent"
             ref={chatBoxRef}
@@ -193,13 +245,60 @@ export default function Home() {
                 className={`flex ${message.sender === 'Assistant' ? 'justify-start' : 'justify-end'}`}
               >
                 <div
-                  className={`max-w-[75%] rounded-xl border border-gray-300 p-3 text-sm 
+                  className={`max-w-[75%] rounded-xl border border-gray-300 p-3 text-xs 
                     ${message.sender === 'Assistant' ? 'bg-blue-700/10' : 'bg-rose-700/30 text-white'}`}
                 >
-                  {message.text}
+                  {/* Format numbered and bold text */}
+                  {message.text.split('\n').map((line, i) => {
+                    // Handle numbered lists and bold text
+                    const numberedLine = line.match(/^(\d+\.)\s(.*)$/);
+                    const boldText = line.match(/\*\*(.*?)\*\*/g);
+
+                    if (numberedLine) {
+                      return (
+                        <p key={i} className="ml-4 text-xs">
+                          <span className="font-medium">{numberedLine[1]}</span>{' '}
+                          {numberedLine[2]}
+                        </p>
+                      );
+                    }
+
+                    if (boldText) {
+                      return (
+                        <p key={i} className="text-xs">
+                          {line.split(/\*\*(.*?)\*\*/).map((part, j) =>
+                            j % 2 === 1 ? (
+                              <span key={j} className="font-medium">{part}</span>
+                            ) : (
+                              part
+                            )
+                          )}
+                        </p>
+                      );
+                    }
+
+                    return <p key={i}>{line}</p>;
+                  })}
                 </div>
               </div>
             ))}
+
+            {showShortcuts && (
+              <div className="flex gap-2 ml-2 mt-4 justify-start">
+                {[`Febrian's Tech Stack?`, `Tell me about Febrian's projects`].map(
+                  (shortcut, index) => (
+                    <button
+                      key={index}
+                      onClick={() => handleShortcutClick(shortcut)}
+                      className="px-3 py-2 bg-gradient-to-r from-rose-900 to-blue-900 text-white border-[0.5px] border-black hover:scale-105 duration-300 rounded-full text-[10px]"
+                    >
+                      {shortcut}
+                    </button>
+                  )
+                )}
+              </div>
+            )}
+
             {isLoading && <div className="self-start text-gray-400">PortoBot is typing...</div>}
           </div>
 
@@ -222,6 +321,7 @@ export default function Home() {
           </div>
         </div>
       </div>
+
 
         <div className="relative col-span-1 md:col-span-1 row-span-1 border-[0.5px] border-gray-200 rounded-[14px] h-full transition-transform duration-500 hover:scale-105 p-4">
           <div className="absolute z-1 inset-0 bg-gray-300 rounded-[14px] opacity-20 pointer-events-none"></div>
