@@ -235,14 +235,22 @@ export default function Home() {
           <h2 className="flex items-center justify-center gap-1 text-lg">
             Febrian&apos;s PortoBot <PiRobotFill />
           </h2>
+
           <div
             className="flex-1 overflow-y-auto space-y-4 pr-2 font-lato font-light scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent"
             ref={chatBoxRef}
           >
+            {/* Pinned Cold Start Message */}
+            <div className="w-full flex justify-center">
+              <div className="bg-gray-200/70 text-gray-600 text-xs py-2 px-4 rounded-lg w-[90%] text-center">
+                ⚠️ The first chat may be slower due to a cold start to optimize costs.
+              </div>
+            </div>
+
             {messages.map((message, index) => (
               <div
                 key={index}
-                className={`flex ${message.sender === 'Assistant' ? 'justify-start' : 'justify-end'}`}
+                className={`flex w-full ${message.sender === 'Assistant' ? 'justify-start' : 'justify-end'}`}
               >
                 <div
                   className={`max-w-[75%] rounded-xl border border-gray-300 p-3 text-xs 
@@ -250,7 +258,6 @@ export default function Home() {
                 >
                   {/* Format numbered and bold text */}
                   {message.text.split('\n').map((line, i) => {
-                    // Handle numbered lists and bold text
                     const numberedLine = line.match(/^(\d+\.)\s(.*)$/);
                     const boldText = line.match(/\*\*(.*?)\*\*/g);
 
