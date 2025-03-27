@@ -187,7 +187,7 @@ export default function Home() {
             </div>
           </div>
           <p className='font-lato font-light text-base mt-2 text-center'>
-            Experienced in building dynamic websites and developing generative artificial intelligence, actively experimenting with AI technologies, with a proven ability to solve real-world challenges.
+            Experienced in building dynamic websites and actively experimenting with AI technologies, with a proven ability to solve real-world challenges.
           </p>
 
           <h2 className='text-xl'>My Tech Stacks</h2>
